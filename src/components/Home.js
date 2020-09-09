@@ -28,18 +28,21 @@ function Home() {
         </div>
         <div className="home__row">
           <Product
+            id="490389"
             title="The lean Startup"
             price={19.99}
             image="https://images-na.ssl-images-amazon.com/images/I/51T-sMqSMiL._SX329_BO1,204,203,200_.jpg"
             rating={4}
           />
           <Product
+            id="49038506"
             title="The lean Startup"
             price={19.99}
             image="https://images-na.ssl-images-amazon.com/images/I/51T-sMqSMiL._SX329_BO1,204,203,200_.jpg"
             rating={5}
           />
           <Product
+            id="490360"
             title="The lean Startup"
             price={19.99}
             image="https://images-na.ssl-images-amazon.com/images/I/51T-sMqSMiL._SX329_BO1,204,203,200_.jpg"
