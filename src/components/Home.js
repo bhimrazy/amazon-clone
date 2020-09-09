@@ -3,7 +3,7 @@ import "./Home.css";
 import Product from "./Product";
 function Home() {
   return (
-    <div>
+    <div className="home">
       <div className="home__container">
         <img
           className="home__image"
@@ -11,17 +11,47 @@ function Home() {
           alt="amazon Home"
         />
         <div className="home__row">
-          {/* Product */}
-          <Product />
-          {/* Product */}
-          <Product />
+          <Product
+            title="The lean Startup"
+            price={19.99}
+            image="https://images-na.ssl-images-amazon.com/images/I/51T-sMqSMiL._SX329_BO1,204,203,200_.jpg"
+            rating={5}
+          />
+          <Product
+            title="The lean Startup"
+            price={19.99}
+            image="https://images-na.ssl-images-amazon.com/images/I/51T-sMqSMiL._SX329_BO1,204,203,200_.jpg"
+            rating={5}
+          />
         </div>
         <div className="home__row">
-          <Product />
-          <Product />
-          <Product />
+          <Product
+            title="The lean Startup"
+            price={19.99}
+            image="https://images-na.ssl-images-amazon.com/images/I/51T-sMqSMiL._SX329_BO1,204,203,200_.jpg"
+            rating={5}
+          />
+          <Product
+            title="The lean Startup"
+            price={19.99}
+            image="https://images-na.ssl-images-amazon.com/images/I/51T-sMqSMiL._SX329_BO1,204,203,200_.jpg"
+            rating={5}
+          />
+          <Product
+            title="The lean Startup"
+            price={19.99}
+            image="https://images-na.ssl-images-amazon.com/images/I/51T-sMqSMiL._SX329_BO1,204,203,200_.jpg"
+            rating={5}
+          />
         </div>
-        <div className="home__row">{/* Product */}</div>
+        <div className="home__row">
+          <Product
+            title="The lean Startup"
+            price={19.99}
+            image="https://images-na.ssl-images-amazon.com/images/I/51T-sMqSMiL._SX329_BO1,204,203,200_.jpg"
+            rating={5}
+          />
+        </div>
       </div>
     </div>
   );
