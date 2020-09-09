@@ -1,11 +1,16 @@
 import React from "react";
 import "./App.css";
+import Header from "./components/Header";
+import Home from "./components/Home";
 
 function App() {
   return (
     //BEM
     <div className="app">
-      <h1>Hello</h1>
+      <Header />
+      <Home />
+      {/* Header */}
+      {/* Home */}
     </div>
   );
 }
