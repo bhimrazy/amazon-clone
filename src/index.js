@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { StateProvider } from "./contextapi/Stateprovider";
+import { StateProvider } from "./contextapi/StateProvider";
+import reducer, { initialState } from "./contextapi/reducer";
 
 ReactDOM.render(
   <React.StrictMode>
