@@ -1,22 +1,46 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./Login.css";
+import { auth } from "../firebase";
+
 function Login() {
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const SignIn = (e) => {
+
+  const signIn = (e) => {
     e.preventDefault();
-    //firebaselogin
+
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((auth) => {
+        history.push("/");
+      })
+      .catch((error) => alert(error.message));
   };
 
   const register = (e) => {
     e.preventDefault();
-    //firebaseregister
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        // it successfully created a new user with email and password
+        if (auth) {
+          history.push("/");
+        }
+      })
+      .catch((error) => alert(error.message));
   };
+
   return (
     <div className="login">
       <Link to="/">
-        <img src="amazon_logo.png" className="login__logo" alt="amazon logo" />
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
+          className="login__logo"
+          alt="amazon logo"
+        />
       </Link>
       <div className="login__container">
         <h1>Sign-in</h1>
@@ -36,7 +60,7 @@ function Login() {
           <button
             type="submit"
             className="login__signInButton"
-            onClick={SignIn}
+            onClick={signIn}
           >
             Sign In
           </button>
