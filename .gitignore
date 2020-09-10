@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 node_modules
 #firebase
-.firebaserc
-firebase.json
+# .firebaserc
+# firebase.json
