@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Payment.css";
 import { useStateValue } from "../contextapi/StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
 import { Link } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { getBasketTotal } from "../contextapi/reducer";
+import CurrencyFormat from "react-currency-format";
 
 function Payment() {
   const [{ basket, user }] = useStateValue();
+
+  const stripe =useStripe();
+  const elements =userElements();
+
+  const [processing, setProcessing] = useState(null);
+  const [succeeded, setsucceeded] = useState(null);
+  const [error, setError] = useState(null);
+  const [disabled, setDisabled] = useState(true);
+  const handleSubmit = (event) => {
+    //stripe stuff
+    event.preventDefault();
+    setProcessing(true);
+    const payload = 
+  };
+  const handleChange = (event) => {
+    //listen for changes and display error
+    setDisabled(event.empty);
+    setError(event.error ? event.error.message : "");
+  };
   return (
     <div className="payment">
       <div className="payment__container">
@@ -48,8 +69,30 @@ function Payment() {
           </div>
           <div className="payment__details">
             {/* Stripe payment */}
-            <form>
-              <CardElement />
+            <form onSubmit={handleSubmit}>
+              <CardElement onChange={handleChange} />
+              <div className="payment__priceContainer">
+                <CurrencyFormat
+                  renderText={(value) => (
+                    <>
+                      <h3>
+                        Order Total:
+                        <strong>{value} </strong>
+                      </h3>
+                    </>
+                  )}
+                  decimalScale={2}
+                  value={getBasketTotal(basket)}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"$"}
+                />
+                <button disabled={processing || disabled || succeeded}>
+                  <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
+                </button>
+              </div>
+              {/* error */}
+              {error && <div>{error}</div>}
             </form>
           </div>
         </div>

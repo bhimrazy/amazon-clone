@@ -22,9 +22,12 @@
 }
 
 .payment__title {
-    flex: 0.3;
+    flex: 0.2;
 }
 
-.payment__address {
-    flex: 0.7;
+.payment__address,
+.payment__items,
+.payment__details,
+.payment__details {
+    flex: 0.8;
 }
