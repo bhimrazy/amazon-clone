@@ -1,27 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Payment.css";
 import { useStateValue } from "../contextapi/StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { getBasketTotal } from "../contextapi/reducer";
 import CurrencyFormat from "react-currency-format";
+import axios from "../axios";
 
 function Payment() {
-  const [{ basket, user }] = useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
+  const history = useHistory();
 
-  const stripe =useStripe();
-  const elements =userElements();
+  const stripe = useStripe();
+  const elements = useElements();
 
-  const [processing, setProcessing] = useState(null);
-  const [succeeded, setsucceeded] = useState(null);
+  const [succeeded, setSucceeded] = useState(false);
+  const [processing, setProcessing] = useState("");
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
-  const handleSubmit = (event) => {
+  const [clientSecret, setClientSecret] = useState(true);
+
+  useEffect(() => {
+    // generate the special stripe secret which allows us to charge a customer
+    const getClientSecret = async () => {
+      const response = await axios({
+        method: "post",
+        // Stripe expects the total in a currencies subunits
+        url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
+      });
+      setClientSecret(response.data.clientSecret);
+    };
+
+    getClientSecret();
+  }, [basket]);
+
+  console.log("THE SECRET IS >>>", clientSecret);
+
+  const handleSubmit = async (event) => {
     //stripe stuff
     event.preventDefault();
     setProcessing(true);
-    const payload = 
+    const payload = await stripe
+      .confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+        },
+      })
+      .then(({ paymentIntent }) => {
+        //paymentIntent = payment confirmation
+        setSucceeded(true);
+        setError(false);
+        setProcessing(false);
+        history.replace("/orders");
+      });
   };
   const handleChange = (event) => {
     //listen for changes and display error
